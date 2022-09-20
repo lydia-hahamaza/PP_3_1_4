@@ -52,7 +52,6 @@ public class AdminController {
     @PutMapping("/edit")
     public String update(User user, @RequestParam("listRoles") ArrayList<Long> roles) {
         user.setRoles(roleService.findByIdRoles(roles));
-        userService.passwordCoder(user);
         userService.update(user);
         return "redirect:/admin/";
     }

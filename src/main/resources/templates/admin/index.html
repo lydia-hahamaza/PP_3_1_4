@@ -26,20 +26,20 @@
                     <input type="submit" value="Изменить"/>
                 </form>
             </td>
-
             <td>
-                <form th:method="delete" th:action="@{/admin/delete/{id} (id=${user.getId()})}">
+                <form th:method="delete" th:action="@{'/admin/delete/' + ${user.id}}">
                     <input type="submit" value="Удалить">
                 </form>
             </td>
-
         </tr>
     </table>
     <p>
-        <a th:href="@{/admin/new}">Добавить пользователя</a>
+    <form th:action="@{'/admin/new'}">
+        <input type="submit" value="Добавить пользователя"/>
+    </form>
     </p>
-    <form th:action="@{/logout}" th:method="POST">
-        <input type="submit" value="Выйти" />
+    <form th:action="@{'/logout'}">
+        <input type="submit" value="Выйти"/>
     </form>
 </div>
 </body>
