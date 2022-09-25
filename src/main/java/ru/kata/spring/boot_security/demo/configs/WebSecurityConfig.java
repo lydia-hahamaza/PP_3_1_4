@@ -33,11 +33,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/index").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().successHandler(successUserHandler)
-                .permitAll()
-                .and()
-                .logout().clearAuthentication(true)
-                .permitAll().logoutSuccessUrl("/login");
+                .formLogin()
+                .loginPage("/login").usernameParameter("username").loginProcessingUrl("/process_login").permitAll()
+                .successHandler(successUserHandler);
     }
 
     @Bean
@@ -50,6 +48,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder(12);
     }
 }

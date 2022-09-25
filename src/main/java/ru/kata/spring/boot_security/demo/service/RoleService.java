@@ -12,10 +12,9 @@ public interface RoleService {
 
     void addRole(Role role);
 
-    Role findById(int id);
+    Role findById(long id);
 
     Set<Role> findByIdRoles(List<Long> roles);
-
 
     public Role getRoleByName(String name);
 

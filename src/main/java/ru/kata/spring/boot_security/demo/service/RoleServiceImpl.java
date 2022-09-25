@@ -20,7 +20,6 @@ public class RoleServiceImpl implements RoleService {
         this.roleDao = roleDao;
     }
 
-
     @Override
     public List<Role> getAllRoles() {
         return roleDao.getAllRoles();
@@ -32,7 +31,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role findById(int id) {
+    public Role findById(long id) {
         return roleDao.findById(id);
     }
 

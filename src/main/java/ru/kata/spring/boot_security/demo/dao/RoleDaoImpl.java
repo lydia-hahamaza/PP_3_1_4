@@ -1,7 +1,6 @@
 package ru.kata.spring.boot_security.demo.dao;
 
-
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.Role;
 
 import javax.persistence.EntityManager;
@@ -11,7 +10,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Component
+@Repository
 public class RoleDaoImpl implements RoleDao {
 
     @PersistenceContext
@@ -28,7 +27,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public Role findById(int id) {
+    public Role findById(long id) {
         return entityManager.find(Role.class, id);
     }
 

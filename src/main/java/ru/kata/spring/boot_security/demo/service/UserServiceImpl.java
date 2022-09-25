@@ -12,8 +12,8 @@ import ru.kata.spring.boot_security.demo.model.User;
 import java.util.List;
 
 
-
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
@@ -29,30 +29,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public void add(User user) {
-        userDao.add(user);
+    public User showUser(Long id) {
+        return userDao.showIdUser(id);
     }
 
     @Override
-    public List<User> getAll() {
-        return userDao.getAll();
+    public List<User> listUser() {
+        return userDao.listUser();
     }
 
     @Override
-    public User findByUserId(int id) {
-        return userDao.getUser(id);
+    public void saveUser(User user) {
+        userDao.saveUser(user);
     }
 
     @Override
-    @Transactional
-    public void update(User user) {
-        userDao.update(user);
+    public void updateUser(User user) {
+        userDao.updateUser(user);
     }
 
     @Override
-    @Transactional
-    public void delete(int id) {
+    public void delete(Long id) {
         userDao.delete(id);
     }
 
