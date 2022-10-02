@@ -11,11 +11,10 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 
 
 @Controller
-@RequestMapping()
+@RequestMapping("/admin")
 public class AdminController {
     private UserService userService;
     private RoleService roleService;
-
 
     @Autowired
     public AdminController(UserService userService, RoleService roleService) {
@@ -23,7 +22,7 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping("admin")
+    @GetMapping
     public String pageForAdmin(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("users", userService.listUser());
         model.addAttribute("userRole", roleService.getAllRoles());
@@ -31,31 +30,25 @@ public class AdminController {
         return "newAdm";
     }
 
-    @GetMapping("admin/new")
-    public String pageCreateUser(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("user", user);
-        model.addAttribute("userRole", roleService.getAllRoles());
-        return "create";
-    }
-
-    @PostMapping("admin/add")
-    public String pageCreate(@ModelAttribute("user") User user, @RequestParam("userRole") String[] roles) {
+    @PostMapping
+    public String pageCreate(@ModelAttribute("user") User user,
+                             @RequestParam(value = "createRoles", required = false) String[] roles) {
         user.setRoles(roleService.getSetOfRoles(roles));
         userService.passwordCoder(user);
         userService.saveUser(user);
         return "redirect:/admin";
     }
 
-    @DeleteMapping("admin/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String pageDelete(@PathVariable("id") long id) {
         userService.delete(id);
         return "redirect:/admin";
     }
 
-    @PutMapping("admin/edit")
-    public String pageEdit(User user, @RequestParam("userRole") String[] roles) {
+    @PostMapping("/{id}")
+    public String pageEdit(@ModelAttribute("user") User user, @RequestParam(value = "editRoles") String[] roles) {
         user.setRoles(roleService.getSetOfRoles(roles));
-        userService.passwordCoder(user);
+        userService.updateUser(user);
         return "redirect:/admin";
     }
 }
